@@ -1,6 +1,7 @@
 package com.lolucode.morphine;
 
 import com.lolucode.morphine.appuser.AppUser;
+import com.lolucode.morphine.appuser.AppUserService;
 import com.lolucode.morphine.reservation.model.Reservation;
 import com.lolucode.morphine.reservation.service.ReservationService;
 import com.lolucode.morphine.reservation.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,8 @@ import java.util.Set;
 public class HomeController {
 
     final UserService userService;
+
+    final AppUserService appUserService;
     final ReservationService reservationService;
 
     @GetMapping("/")
@@ -38,8 +42,8 @@ public class HomeController {
     @GetMapping("/reservations")
     public String reservations(Model model, HttpSession session) {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = principal.getUsername();
-        AppUser appUser = userService.getUserByUsername(name);
+        String email = principal.getUsername();
+        AppUser appUser = appUserService.findAppUserByEmail(email);
 
         if(appUser != null) {
             session.setAttribute("appUser", appUser);
@@ -55,7 +59,8 @@ public class HomeController {
 
     }
 
-    public String createReservation(@ModelAttribute Reservation reservation, Model model, @SessionAttribute("user") AppUser appUser) {
+    @PostMapping("/reservations-submit")
+    public String reservationsSubmit(@ModelAttribute Reservation reservation, Model model, @SessionAttribute("appUser") AppUser appUser) {
         // Save to DB after updating
         assert appUser != null;
         reservation.setAppUser(appUser);

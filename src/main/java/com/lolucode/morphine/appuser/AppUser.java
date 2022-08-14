@@ -42,8 +42,9 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
 
-    @OneToMany(mappedBy = "app_user", fetch = FetchType.EAGER)
-    private Set<Reservation> reservations ;
+    @OneToMany(mappedBy = "appUser", fetch = FetchType.EAGER)
+    private Set<Reservation> reservations;
+
 
     public AppUser(String firstName,
                    String lastName,
@@ -56,6 +57,7 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.appUserRole = appUserRole;
     }
+
 
 
     @Override
