@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+    app:
+        image: 'docker-spring-boot-postgres:latest'
+        build:
+            context: .
+            container_name: app
+            depends_on:
+                - postgresqldb
+            ports:
+                - 8085:8085
+            environment:
+                - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresqldb:5432/lolucode
+                - SPRING_DATASOURCE_USERNAME=lolucode
+                - SPRING_DATASOURCE_PASSWORD=password
+                - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+    postgresqldb:
+        image: 'postgres:13.1-alpine'
+        container_name: postgresqldb
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=lolucode
+            - POSTGRES_PASSWORD=password
+    maildev:
+        image: maildev/maildev
+        ports:
+            - "1080:1080"
