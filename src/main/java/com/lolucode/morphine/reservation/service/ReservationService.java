@@ -28,7 +28,13 @@ public class ReservationService {
     }
 
     public Long create(final Reservation reservation) {
-        int capacity = capacityRepository.findByAmenityType(reservation.getAmenityType()).getCapacity();
+        int capacity = 10;
+        if (capacityRepository.findByAmenityType(reservation.getAmenityType())!=null){
+            capacity = capacityRepository.findByAmenityType(reservation.getAmenityType()).getCapacity();
+
+        }
+
+
         int overlappingReservations = reservationRepository
                 .findReservationsByReservationDateAndStartTimeBeforeAndEndTimeAfterOrStartTimeBetween(
                         reservation.getReservationDate(),

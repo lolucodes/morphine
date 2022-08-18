@@ -104,6 +104,7 @@
 						<image>openjdk:17</image>
 					</from>
 					<container>
+						<mainClass>com.lolucode.morphine.MorphineApplication</mainClass>
 						<ports>
 							<port>8080</port>
 						</ports>
@@ -130,6 +131,7 @@
 								<image>openjdk:17</image>
 							</from>
 							<container>
+								<mainClass>com.lolucode.morphine.MorphineApplication</mainClass>
 								<ports>
 									<port>8080</port>
 								</ports>
@@ -182,6 +184,7 @@
 								<image>openjdk:17</image>
 							</from>
 							<container>
+								<mainClass>com.lolucode.morphine.MorphineApplication</mainClass>
 								<ports>
 									<port>8080</port>
 								</ports>
