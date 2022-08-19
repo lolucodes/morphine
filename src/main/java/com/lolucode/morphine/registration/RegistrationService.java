@@ -3,6 +3,7 @@ package com.lolucode.morphine.registration;
 import com.lolucode.morphine.appuser.AppUser;
 import com.lolucode.morphine.appuser.AppUserRole;
 import com.lolucode.morphine.appuser.AppUserService;
+import com.lolucode.morphine.email.AwsEmailService;
 import com.lolucode.morphine.email.EmailSender;
 import com.lolucode.morphine.registration.token.ConfirmationToken;
 import com.lolucode.morphine.registration.token.ConfirmationTokenService;
@@ -19,6 +20,8 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+
+    private final AwsEmailService awsemail;
 
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
@@ -40,7 +43,10 @@ public class RegistrationService {
         );
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send(
+//        emailSender.send(
+//                request.getEmail(),
+//                buildEmail(request.getFirstName(), link));
+        awsemail.send(
                 request.getEmail(),
                 buildEmail(request.getFirstName(), link));
 

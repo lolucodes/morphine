@@ -1,7 +1,7 @@
 version: "3.8"
 services:
     backend:
-        image: "lolucodes/amenity-reservation-app:v2"
+        image: "lolucodes/morphine:v4"
         ports:
             -   "80:8080"
         restart: "always"

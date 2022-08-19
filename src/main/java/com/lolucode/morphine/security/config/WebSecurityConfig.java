@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final String[] SECURITY_IGNORED_ENDPOINTS = {
-            "/h2-console/**", "/h2/**", "/webjars/**", "/api/v*/registration/**"
+            "/h2-console/**", "/h2/**", "/webjars/**", "/api/v*/registration/**", "/register/**"
     };
 
     @Override
@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
